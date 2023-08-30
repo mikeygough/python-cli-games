@@ -31,7 +31,9 @@ def play_game(deck):
         else:
             print("Incorrect! The correct answer was", i["a"])
             print(f"Current score: {score}/{total}")
-    print(f"\nThanks for studying! \nFinal Score {score}/{total}")
+    print(f"\nFinal Score {score}/{total}")
+    
+    return score, total
 
 # load data
 data = read_file(file_name='me-capitals.json')
@@ -44,19 +46,26 @@ while player == True:
     random.shuffle(data["cards"])
    
     # play game
-    play_game(deck=data)
+    score, total = play_game(deck=data)
     
-    # get user input to continue or break
-    play_again = input("Would you like to play again? (yes/no) > ")
-    
-    if play_again == 'yes':
-       player = True
+    if score != total:
+        print("Looks like you haven't yet mastered the material... Let's play again!\n")
+        play_again = True
     else:
-       break
+        # get user input to continue or break
+        print("You scored 100%!")
+        play_again = input("Would you like to play again? (yes/no) > ")
+    
+        if play_again == 'yes':
+            player = True
+        else:
+            break
+    
+    
 
 ''' Brainstorming New Features
 [X] Ask them if they want to play again at the end.
-[] Randomize the order of questions.
+[X] Randomize the order of questions.
 [] Keep playing until the player gets all the questions right at least once.
 [] Keep playing until the player answers correctly 10 in a row.
 [] Create various data files that are different sets of questions and let people pick which one they want to do.
