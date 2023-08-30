@@ -1,0 +1,24 @@
+{
+  "cards": [
+    {
+      "q": "Hello",
+      "a": "Konnichiwa"
+    },
+    {
+      "q": "Goodbye",
+      "a": "Sayonara"
+    },
+    {
+      "q": "Thank You",
+      "a": "Arigatou"
+    },
+    {
+      "q": "Excuse Me",
+      "a": "Sumimasen"
+    },
+    {
+      "q": "Delicious",
+      "a": "Oiishii"
+    }
+  ]
+}
