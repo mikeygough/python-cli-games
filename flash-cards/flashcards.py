@@ -31,7 +31,7 @@ def play_game(deck):
             # interpolate score and total into the response
             print(f"Correct! Current score: {score}/{total}")
         else:
-            print("Incorrect! The correct answer was", i["a"])
+            print(f"Incorrect! The correct answer was {i['a']}")
             print(f"Current score: {score}/{total}")
     print(f"\nFinal Score {score}/{total}")
     
@@ -74,12 +74,18 @@ while player == True:
     # play game
     score, total = play_game(deck=data)
     
+    # didn't pass
     if score != total:
+        if score / total <= 0.5:
+            print("You need practice...")
+        elif score / total > 0.5:
+            print("Good work...")
         print("Looks like you haven't yet mastered the material... Let's play again!\n")
         play_again = True
+    # passed
     else:
         # get user input to continue or break
-        print("You scored 100%!")
+        print("Amazing... You scored 100%!")
         play_again = input("Would you like to play again? (yes/no) > ")
     
         if play_again == 'yes':
@@ -91,7 +97,9 @@ while player == True:
 [X] Ask them if they want to play again at the end.
 [X] Randomize the order of questions.
 [X] Keep playing until the player gets all the questions right at least once.
-[] Create various data files that are different sets of questions and let people pick which one they want to do.
+[X] Create various data files that are different sets of questions and let people pick which one they want to do.
+
+# 
 [] Let people enter their own cards and save those as libraries of questions and answers.
 [] Keep playing until the player answers correctly 10 in a row.
 
