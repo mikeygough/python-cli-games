@@ -45,19 +45,23 @@ def list_decks():
         decks.append(deck[:-5])
     return decks
 
+# get list of available decks
 decks = list_decks()
 
+# display available decks to user
 print("Available Decks:")
 for deck in decks:
     print(deck)
-    
+
+# get deck from user
 deck_choice = input("Please choose a deck to study: ")
 
+# ensure deck exists
 while deck_choice not in decks:
     print("Invalid Deck! Please try again.")
     deck_choice = input("Please choose a deck to study: ")
 
-# load data
+# load data for deck
 data = read_file(file_name=f"decks/{deck_choice}.json")
 
 # start study loop
@@ -82,8 +86,6 @@ while player == True:
             player = True
         else:
             break
-    
-    
 
 ''' Brainstorming New Features
 [X] Ask them if they want to play again at the end.
