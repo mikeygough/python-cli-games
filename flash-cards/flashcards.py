@@ -1,7 +1,8 @@
-# import the json module from python3
+# imports
 import json # to read json
 import random # to shuffle
 import os # to list available decks
+
 
 def read_file(file_name):
     ''' read_file() opens file_name, a .json file, reads as json
@@ -11,8 +12,34 @@ def read_file(file_name):
         # print(data)
         data = json.load(f)
         return data
+    
+
+def list_decks():
+    ''' list_decks() returns a list of strings with the available decks in ./decks '''
+    decks = []
+    for deck in os.listdir('./decks'):
+        decks.append(deck[:-5])
+    return decks
+
+
+def select_deck(available_decks):
+    ''' select_deck() shows the user the available decks and prompts them to select one for study '''
+    # display available decks to user
+    print("Available Decks:")
+    for deck in available_decks:
+        print(deck)
+
+    # get deck from user
+    deck_choice = input("Please choose a deck to study: ")
+
+    # ensure deck exists
+    while deck_choice not in available_decks:
+        print("Invalid Deck! Please try again.")
+        deck_choice = input("Please choose a deck to study: ")
+        
+    return deck_choice
   
-  
+
 def play_game(deck):
     ''' play_game() runs through a round of flashcard reviews.
     takes one argument, deck, which is the deck dictionary
@@ -37,29 +64,12 @@ def play_game(deck):
     
     return score, total
 
-
-def list_decks():
-    ''' list_decks() returns a list of strings with the available decks in ./decks '''
-    decks = []
-    for deck in os.listdir('./decks'):
-        decks.append(deck[:-5])
-    return decks
+# main
 
 # get list of available decks
 decks = list_decks()
 
-# display available decks to user
-print("Available Decks:")
-for deck in decks:
-    print(deck)
-
-# get deck from user
-deck_choice = input("Please choose a deck to study: ")
-
-# ensure deck exists
-while deck_choice not in decks:
-    print("Invalid Deck! Please try again.")
-    deck_choice = input("Please choose a deck to study: ")
+deck_choice = select_deck(available_decks=decks)
 
 # load data for deck
 data = read_file(file_name=f"decks/{deck_choice}.json")
@@ -80,6 +90,7 @@ while player == True:
             print("You need practice...")
         elif score / total > 0.5:
             print("Good work...")
+        
         print("Looks like you haven't yet mastered the material... Let's play again!\n")
         play_again = True
     # passed
@@ -98,8 +109,6 @@ while player == True:
 [X] Randomize the order of questions.
 [X] Keep playing until the player gets all the questions right at least once.
 [X] Create various data files that are different sets of questions and let people pick which one they want to do.
-
-# 
 [] Let people enter their own cards and save those as libraries of questions and answers.
 [] Keep playing until the player answers correctly 10 in a row.
 
