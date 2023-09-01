@@ -129,6 +129,7 @@ while study == True:
 [X] Let people enter their own cards and save those as libraries of questions and answers. -> in make_flashcards.py
 [X] add additional data to json... such as header and or deck name
 [] Keep playing until the player answers correctly 10 in a row.
+    I don't really agree with this feature idea. It doesn't work well with smaller decks and prevents users from studying the entire deck.
 
 f-strings - Can you use f-strings to change how we do string interpolations throughout this program?
 
