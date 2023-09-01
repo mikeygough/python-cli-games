@@ -1,0 +1,17 @@
+{
+  "title": "Spanish Numbers",
+  "cards": [
+    {
+      "q": "uno",
+      "a": "one"
+    },
+    {
+      "q": "dos",
+      "a": "two"
+    },
+    {
+      "q": "tres",
+      "a": "three"
+    }
+  ]
+}

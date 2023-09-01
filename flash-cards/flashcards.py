@@ -7,41 +7,58 @@ import os # to list available decks
 def read_file(file_name):
     ''' read_file() opens file_name, a .json file, reads as json
         and returns that data as a dictionary to make flashcards. '''
+    
     with open(file_name, 'r') as f:
         # debug
         # print(data)
         data = json.load(f)
+        print(f"Successfully loaded {data['title']}!")
         return data
     
 
-def list_decks():
-    ''' list_decks() returns a list of strings with the available decks in ./decks '''
-    decks = []
+def get_decks():
+    ''' get_decks() returns a list of strings with the available decks in ./decks '''
+    
+    # initialize list of decks
+    decks_list = []
+    # append name without .json
     for deck in os.listdir('./decks'):
-        decks.append(deck[:-5])
-    return decks
+        decks_list.append(deck[:-5])
+    
+    # initialize dictionary for decks    
+    decks_dict = {}
+    # append key and value to dictionary
+    for count, value in enumerate(decks_list, start=1):
+        # store key, value. convert count to str from int.
+        decks_dict[str(count)] = value
+    
+    # return dictionary of decks
+    return decks_dict
 
 
 def select_deck(available_decks):
-    ''' select_deck() shows the user the available decks and prompts them to select one for study '''
+    ''' select_deck() shows the user the available decks and prompts them to select one for study 
+    using the deck's key. '''
+    
     # display available decks to user
-    print("Available Decks:")
-    for deck in available_decks:
-        print(deck)
+    print("Available decks:")
+    for deck_key, deck_value in available_decks.items():
+        print(f"{deck_key}. {deck_value}")
 
     # get deck from user
     deck_choice = input("Please choose a deck to study: ")
 
     # ensure deck exists
-    while deck_choice not in available_decks:
-        print("Invalid Deck! Please try again.")
+    while deck_choice not in list(available_decks.keys()):
+        print("Invalid deck! Please try again.")
         deck_choice = input("Please choose a deck to study: ")
         
-    return deck_choice
+    # return filename of selected deck
+    return available_decks[deck_choice]
   
 
-def play_game(deck):
-    ''' play_game() runs through a round of flashcard reviews.
+def study_deck(deck):
+    ''' study_deck() runs through a round of flashcard reviews.
     takes one argument, deck, which is the deck dictionary
     returned from loading data with the read_file() function. '''
    
@@ -58,31 +75,31 @@ def play_game(deck):
             # interpolate score and total into the response
             print(f"Correct! Current score: {score}/{total}")
         else:
-            print(f"Incorrect! The correct answer was {i['a']}")
+            print(f"Incorrect! The correct answer was: {i['a']}")
             print(f"Current score: {score}/{total}")
-    print(f"\nFinal Score {score}/{total}")
+    print(f"\nFinal score: {score}/{total}")
     
     return score, total
 
 # main
+# get available decks
+decks = get_decks()
 
-# get list of available decks
-decks = list_decks()
-
+# get deck choice
 deck_choice = select_deck(available_decks=decks)
 
 # load data for deck
 data = read_file(file_name=f"decks/{deck_choice}.json")
 
 # start study loop
-player = True
-while player == True:
+study = True
+while study == True:
    
-  # shuffle deck
+    # shuffle deck
     random.shuffle(data["cards"])
    
-    # play game
-    score, total = play_game(deck=data)
+    # study deck
+    score, total = study_deck(deck=data)
     
     # didn't pass
     if score != total:
@@ -91,16 +108,16 @@ while player == True:
         elif score / total > 0.5:
             print("Good work...")
         
-        print("Looks like you haven't yet mastered the material... Let's play again!\n")
-        play_again = True
+        print("Looks like you haven't mastered the material yet... Let's review again!\n")
+        study_again = True
     # passed
     else:
-        # get user input to continue or break
+        # get user input to continue studying or finish
         print("Amazing... You scored 100%!")
-        play_again = input("Would you like to play again? (yes/no) > ")
+        study_again = input("Would you like to study again? (yes/no) > ")
     
-        if play_again == 'yes':
-            player = True
+        if study_again == 'yes':
+            study = True
         else:
             break
 
@@ -109,7 +126,8 @@ while player == True:
 [X] Randomize the order of questions.
 [X] Keep playing until the player gets all the questions right at least once.
 [X] Create various data files that are different sets of questions and let people pick which one they want to do.
-[] Let people enter their own cards and save those as libraries of questions and answers.
+[X] Let people enter their own cards and save those as libraries of questions and answers. -> in make_flashcards.py
+[X] add additional data to json... such as header and or deck name
 [] Keep playing until the player answers correctly 10 in a row.
 
 f-strings - Can you use f-strings to change how we do string interpolations throughout this program?
@@ -130,5 +148,5 @@ Use functions to organize your code.
     And return True or False if the question was answered correctly
   Write a function to display game messages
     You might have a function to display a starting message
-    You might have a quwstion to display an end game message
+    You might have a question to display an end game message
 '''

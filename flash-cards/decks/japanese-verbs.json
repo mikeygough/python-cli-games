@@ -1,0 +1,17 @@
+{
+  "title": "Japanese Verbs",
+  "cards": [
+    {
+      "q": "to eat",
+      "a": "taberu"
+    },
+    {
+      "q": "to read",
+      "a": "yomu"
+    },
+    {
+      "q": "to drink",
+      "a": "nomu"
+    }
+  ]
+}
