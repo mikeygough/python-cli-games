@@ -19,16 +19,17 @@ Supports the following features:
 
 #### Write pseudo code that describes the flashcards game.
 
-read_file:
+FUNCTION read_file:
   INPUTS file_name
   
   INITIALIZE data
   SET data = READ file_name as json
   DISPLAY "Successfully loaded" + file_name
   RETURN  data
+END FUNCTION
 
 
-get_decks:
+FUNCTION get_decks:
   INITIALIZE decks_list
   
   FOR file in decks directory:
@@ -41,9 +42,10 @@ get_decks:
   END FOR
   
   RETURN decks_list
+END FUNCTION
 
 
-select_deck:
+FUNCTION select_deck:
   INPUTS available_decks
   
   DISPLAY "Available Decks"
@@ -59,9 +61,10 @@ select_deck:
   END WHILE LOOP
 
   RETURN available_decks["deck_choice"]
+END FUNCTION
 
 
-study_deck:
+FUNCTION study_deck:
   INPUTS deck
 
   INITIALIZE total
@@ -83,6 +86,7 @@ study_deck:
   END FOR
   DISPLAY "Final score: " + score / total
   RETURN score, total
+END FUNCTION
 
 
 INITIALIZE decks
