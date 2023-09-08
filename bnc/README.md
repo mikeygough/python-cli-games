@@ -13,7 +13,6 @@ Supports the following features:
 [X] Users can choose to read the instructions or not.
 [X] Score keeping and display after each round plus a final score at the end.
 
-
 #### Write pseudo code that describes the game Bear, Ninja Cowboy.
 
 DISPLAY "Get ready to play Bear, Ninja, Cowboy!"

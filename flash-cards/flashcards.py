@@ -109,7 +109,6 @@ while study == True:
             print("Good work...")
         
         print("Looks like you haven't mastered the material yet... Let's review again!\n")
-        study_again = True
     # passed
     else:
         # get user input to continue studying or finish
